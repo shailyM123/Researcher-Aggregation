@@ -1,9 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@theme {
+  /* Enforcing our 60-30-10 Academic Identity */
+  --color-academic-bg: #f8fafc;       /* 60%: Slate-50 Soft Background */
+  --color-academic-primary: #0f172a;  /* 30%: Slate-900 Navy Headers/Text */
+  --color-academic-orcid: #a6ce39;    /* 10%: Vibrant ORCID Branding Green */
+}
 
-/* You can set your global academic background color here */
-body {
-  background-color: #f8fafc; /* slate-50 */
-  color: #0f172a;            /* slate-900 */
+/* Base styles using our clean theme tokens */
+@layer base {
+  body {
+    background-color: var(--color-academic-bg);
+    color: var(--color-academic-primary);
+  }
 }
