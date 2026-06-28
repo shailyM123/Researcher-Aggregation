@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface AnimatedStatProps {
   value: string;
   label: string;
-  icon: string;
+  icon: React.ReactNode;
   bg: string;
   iconBg: string;
 }
