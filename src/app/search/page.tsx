@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import AnimatedStat from "./AnimatedStat";
 
 export interface Professor {
   id: number;
@@ -38,10 +41,10 @@ const mockProfessors: Professor[] = [
 ];
 
 const stats = [
-  { value: "125K+", label: "Researchers",   icon: "👥", bg: "bg-violet-50", iconBg: "bg-violet-100" },
-  { value: "98+",   label: "Countries",     icon: "📖", bg: "bg-green-50",  iconBg: "bg-green-100"  },
-  { value: "2.4K+", label: "Institutions",  icon: "🏛️", bg: "bg-amber-50",  iconBg: "bg-amber-100"  },
-  { value: "1.3M+", label: "Publications",  icon: "📄", bg: "bg-blue-50",   iconBg: "bg-blue-100"   },
+  { value: "125K+", label: "Researchers",  icon: "👥", bg: "bg-violet-50", iconBg: "bg-violet-100" },
+  { value: "98+",   label: "Countries",    icon: "📖", bg: "bg-green-50",  iconBg: "bg-green-100"  },
+  { value: "2.4K+", label: "Institutions", icon: "🏛️", bg: "bg-amber-50",  iconBg: "bg-amber-100"  },
+  { value: "1.3M+", label: "Publications", icon: "📄", bg: "bg-blue-50",   iconBg: "bg-blue-100"   },
 ];
 
 const popularTags = ["Computer Science", "Engineering", "Medicine", "Physics", "Biology"];
@@ -49,10 +52,17 @@ const popularTags = ["Computer Science", "Engineering", "Medicine", "Physics", "
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 font-sans">
+
       {/* ── Hero ── */}
-      <section className="relative bg-gradient-to-br from-indigo-50 via-sky-50 to-blue-100 py-14 px-8 text-center overflow-hidden">
+      <section
+        className="relative py-14 px-8 text-center overflow-hidden bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/worldmap.svg')" }}
+      >
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/50 pointer-events-none z-0" />
+
         {/* Decorative circles */}
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none z-0">
           <svg className="absolute left-[4%] top-1/2 -translate-y-1/2 opacity-25" width="180" height="180">
             <circle cx="90" cy="90" r="80" fill="none" stroke="#a5b4fc" strokeWidth="1.5" />
             <circle cx="90" cy="90" r="50" fill="none" stroke="#a5b4fc" strokeWidth="1" />
@@ -62,10 +72,11 @@ export default function HomePage() {
             <circle cx="80" cy="80" r="42" fill="none" stroke="#93c5fd" strokeWidth="1" />
           </svg>
         </div>
-        <h1 className="text-[2rem] font-bold text-slate-800 font-serif mb-2 relative z-10">
+
+        <h1 className="text-[2rem] font-bold text-white font-serif mb-2 relative z-10">
           Global Researcher Directory
         </h1>
-        <p className="text-slate-500 text-sm mb-6 relative z-10">
+        <p className="text-slate-200 text-sm mb-6 relative z-10">
           A database engine seeded by OpenAlex to search, verify, and track academic researchers.
         </p>
         <button className="relative z-10 inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 transition-colors text-white font-medium text-sm px-6 py-3 rounded-lg">
@@ -77,6 +88,7 @@ export default function HomePage() {
       <div className="px-8">
         <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm -mt-px">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-3 items-center">
+
             {/* Name search */}
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
@@ -135,6 +147,7 @@ export default function HomePage() {
 
       {/* ── Main content ── */}
       <main className="flex-1 px-8 py-6">
+
         {/* Section header */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-2.5">
@@ -201,23 +214,22 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Stats row */}
+      {/* Stats row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {stats.map((s) => (
-            <div key={s.label} className="bg-white border border-slate-200 rounded-xl p-4 flex items-center gap-3">
-              <div className={`w-9 h-9 rounded-lg ${s.iconBg} flex items-center justify-center text-lg flex-shrink-0`}>
-                {s.icon}
-              </div>
-              <div>
-                <p className="text-lg font-bold text-slate-800 leading-none">{s.value}</p>
-                <p className="text-[11px] text-slate-400 mt-0.5">{s.label}</p>
-              </div>
-            </div>
+            <AnimatedStat
+              key={s.label}
+              value={s.value}
+              label={s.label}
+              icon={s.icon}
+              bg={s.bg}
+              iconBg={s.iconBg}
+            />
           ))}
         </div>
+
       </main>
 
-      
     </div>
   );
 }
